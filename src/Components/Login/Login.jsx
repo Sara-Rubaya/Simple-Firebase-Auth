@@ -27,11 +27,13 @@ const Login = () => {
             const loggedInUser = result.user;
             console.log(loggedInUser);
 
-            if(!loggedInUser.email){
+            if(!loggedInUser.email && loggedInUser?.providerData?.length){
                 console.log('user email is not directly provided.')
+                if(loggedInUser.providerData[0].email){
+                    loggedInUser.email = loggedInUser.providerData[0].email
+                    setUser(loggedInUser);
+                }
             }
-
-            setUser(loggedInUser);
         })
         .catch(error =>{
             console.log(error);
